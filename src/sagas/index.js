@@ -3,10 +3,11 @@ import { callApi } from '../services/api';
 import { GET_METHOD, LOAD_USER_INDEX } from '../constants';
 
 function* fetchUser() {
-  yield put('user.records.request');
+  yield put({ type: 'user.records.request' });
 
   const { response, error } = yield call(callApi, GET_METHOD, '/users');
-  if (response) {
+
+  if (response.hasOwnProperty('users')) {
     yield put({ type: 'user.records.success', data: response.users });
   } else {
     yield put({ type: 'user.records.failure', error: error });
