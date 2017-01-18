@@ -21,7 +21,8 @@ Component will dispatch an action, Saga will intercept the action (depending on 
 ### How to run
 
 #### Backend
-Just run `ruby app.rb`.
+Just run `ruby backend/server.rb`.
+
 _NOTE: Make sure you meet the dependencies expectations._
 
 #### Frontend

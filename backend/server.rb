@@ -1,8 +1,19 @@
+require 'json'
 require 'sinatra'
-require 'sinatra/json'
+
+options '/users' do
+  headers['Allow'] = 'HEAD,GET,PUT,POST,DELETE,OPTIONS'
+  headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept'
+  headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+  headers['Access-Control-Max-Age'] = '1728000'
+
+  200
+end
 
 get '/users' do
-  json: {
+  headers['Content-Type'] = 'application/json; charset=utf-8'
+  headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+  {
     users: [{
       id: 1,
       name: 'Luke Skywalker',
@@ -24,5 +35,5 @@ get '/users' do
       name: 'Obi-wan Kenobi',
       email: 'masterkenobi@jedi.com',
     }]
-  }
+  }.to_json
 end
