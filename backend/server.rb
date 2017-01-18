@@ -13,6 +13,9 @@ end
 get '/users' do
   headers['Content-Type'] = 'application/json; charset=utf-8'
   headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+  puts "sleeping"
+  sleep(5)
+  puts "waking up"
   {
     users: [{
       id: 1,

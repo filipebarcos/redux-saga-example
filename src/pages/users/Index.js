@@ -15,11 +15,19 @@ class Index extends React.Component {
   }
 
   get renderEmptyBody() {
-    return (
-      <tr>
-        <td colSpan={3}>There are currently no users.</td>
-      </tr>
-    );
+    if (this.props.loading) {
+      return (
+        <tr>
+          <td colSpan={3}>LOADING!!!!</td>
+        </tr>
+      );
+    } else {
+      return (
+        <tr>
+          <td colSpan={3}>There are currently no users.</td>
+        </tr>
+      );
+    }
   }
 
   renderSingleBodyRow(user: User) {
@@ -57,7 +65,8 @@ class Index extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    records: state.get('users').get('records')
+    records: state.get('users').get('records'),
+    loading: state.get('users').get('loading')
   };
 };
 
