@@ -1,8 +1,9 @@
 // @flow
+import { fromJS } from 'immutable';
 const baseUrl = "http://localhost:4567";
 
 const parseResponse = (response) => (
-  response.json().then(json => ({ json, response}))
+  response.json().then(json => ({ json: fromJS(json), response}))
 );
 
 const handleResponse = ({json, response}) => {

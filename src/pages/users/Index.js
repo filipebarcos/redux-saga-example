@@ -14,7 +14,7 @@ class Index extends React.Component {
     this.props.loadUsers();
   }
 
-  get renderEmptyBody () {
+  get renderEmptyBody() {
     return (
       <tr>
         <td colSpan={3}>There are currently no users.</td>
@@ -22,17 +22,17 @@ class Index extends React.Component {
     );
   }
 
-  renderSingleBodyRow (user: User) {
+  renderSingleBodyRow(user: User) {
     return (
-      <tr>
-        <td>{user.id}</td>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
+      <tr key={user.get('id')}>
+        <td>{user.get('id')}</td>
+        <td>{user.get('name')}</td>
+        <td>{user.get('email')}</td>
       </tr>
     );
   }
 
-  get renderBody () {
+  get renderBody() {
     if (this.props.records.size === 0) return this.renderEmptyBody;
     return this.props.records.valueSeq().map(user => this.renderSingleBodyRow(user));
   }

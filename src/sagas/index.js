@@ -3,21 +3,21 @@ import { callApi } from '../services/api';
 import { GET_METHOD, LOAD_USER_INDEX } from '../constants';
 
 function* fetchUser() {
-  yield put({ type: 'user.records.request' });
+  yield put({ type: 'users.records.request' });
 
   const { response, error } = yield call(callApi, GET_METHOD, '/users');
 
-  if (response.hasOwnProperty('users')) {
-    yield put({ type: 'user.records.success', data: response.users });
+  if (response.has('users')) {
+    yield put({ type: 'users.records.success', data: response.get('users') });
   } else {
-    yield put({ type: 'user.records.failure', error: error });
+    yield put({ type: 'users.records.failure', error: error });
   }
 }
 
 function* watchLoadUserIndex() {
   while(true) {
     yield take(LOAD_USER_INDEX);
-    yield call(fetchUser);
+    yield fork(fetchUser);
   }
 }
 
