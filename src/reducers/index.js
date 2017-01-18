@@ -1,3 +1,4 @@
+import * as constants from '../constants';
 import { Map, List } from 'immutable';
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux-immutable';
@@ -20,12 +21,12 @@ const recordsFailed = (state, action) => {
   });
 };
 
-const handleRecordsActions = () => {
+const handleRecordsActions = (type) => {
   return handleActions(
     {
-      'records.request': recordsLoading,
-      'records.success': recordsSuccess,
-      'records.failure': recordsFailed,
+      [`${type}.records.request`]: recordsLoading,
+      [`${type}.records.success`]: recordsSuccess,
+      [`${type}.records.failure`]: recordsFailed,
     }, new Map({
       records: new List(),
       loading: false,
@@ -33,10 +34,10 @@ const handleRecordsActions = () => {
   );
 };
 
-const records = handleRecordsActions();
+const users = handleRecordsActions(constants.USERS);
 
 const rootReducer = combineReducers({
-  records
+  users
 });
 
 export default rootReducer;

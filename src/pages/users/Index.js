@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import { loadUserIndex } from '../../actions';
 
 type User = {
   id: string | number,
@@ -9,6 +10,10 @@ type User = {
 };
 
 class Index extends React.Component {
+  componentWillMount() {
+    this.props.loadUsers();
+  }
+
   get renderEmptyBody () {
     return (
       <tr>
@@ -52,9 +57,18 @@ class Index extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    records: state.get('records', new Map()).get('records')
+    records: state.get('users').get('records')
   };
 };
 
-const UsersIndex = connect(mapStateToProps)(Index);
+const mapDispatchToProps = dispatch => {
+  return {
+    loadUsers: () => dispatch(loadUserIndex())
+  };
+}
+
+const UsersIndex = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Index);
 export default UsersIndex;
