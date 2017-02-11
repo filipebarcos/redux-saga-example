@@ -1,13 +1,13 @@
-import { take, put, call, fork } from 'redux-saga/effects'
+import { take, put, call, fork } from 'redux-saga/effects';
 import { callApi } from '../services/api';
 import { GET_METHOD, LOAD_USER_INDEX } from '../constants';
 
-function* fetchUser() {
+export function* fetchUser() {
   yield put({ type: 'users.records.request' });
 
   const { response, error } = yield call(callApi, GET_METHOD, '/users');
 
-  if (response.has('users')) {
+  if (response) {
     yield put({ type: 'users.records.success', data: response.get('users') });
   } else {
     yield put({ type: 'users.records.failure', error: error });
